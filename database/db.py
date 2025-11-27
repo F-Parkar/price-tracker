@@ -6,7 +6,8 @@ File: database/db.py
 import sqlite3
 from datetime import datetime
 
-DATABASE_PATH = 'price_tracker.db'
+DATABASE_PATH = '/data/price_tracker.db'
+
 
 def init_db():
     """Initialize the database with the products table"""
