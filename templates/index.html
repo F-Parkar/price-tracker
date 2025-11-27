@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Tracker - Add Product</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Price Tracker</h1>
+        <p class="subtitle">Track South African product prices and get notified of changes</p>
+        
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" action="{{ url_for('add') }}">
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="name" placeholder="e.g., Samsung Galaxy S24" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Product URL</label>
+                <input type="url" name="url" placeholder="https://takealot.com/product" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Your Email</label>
+                <input type="email" name="email" placeholder="you@example.co.za" required>
+            </div>
+            
+            <div class="form-group">
+                <label>CSS Selector <span class="optional">(optional - only if auto-detection fails)</span></label>
+                <textarea name="css_selector" placeholder=".price-box .price"></textarea>
+                <small class="help-text">Right-click the price → Inspect → Copy selector</small>
+            </div>
+            
+            <div class="form-group checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="use_selenium" id="use_selenium">
+                    <span class="checkbox-text">
+                        <strong>Use JavaScript rendering (Selenium)</strong>
+                        <br>
+                        <small>Enable this for React apps or pages that load prices dynamically. Slower but more reliable for modern websites.</small>
+                    </span>
+                </label>
+            </div>
+            
+            <button type="submit">Start Tracking</button>
+        </form>
+        
+        <div class="link">
+            <a href="{{ url_for('dashboard') }}">View Dashboard →</a>
+        </div>
+    </div>
+</body>
+</html>
